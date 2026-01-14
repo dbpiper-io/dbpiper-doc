@@ -1,192 +1,325 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Zap, RefreshCw, Clock } from 'lucide-react';
 import * as motion from "framer-motion/client";
+import Link from "next/link"
+import { ArrowRight, MousePointer, Code2 } from 'lucide-react';
+import Image from 'next/image'
 
 export default function Hero() {
-  return (
-    <section className="relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-linear-to-br from-slate-50 via-indigo-50/30 to-teal-50/20" />
 
-      {/* Animated background orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-200/30 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+  const databases = [
+    {
+      name: 'Webflow',
+      abbr: 'WF',
+      color: 'bg-[#4353FF]',
+      bgColor: 'bg-[#4353FF]/10',
+      borderColor: 'border-[#4353FF]/20',
+      textColor: 'text-[#4353FF]'
+    },
+    {
+      name: 'PostgreSQL',
+      abbr: 'PG',
+      color: 'bg-[#336791]',
+      bgColor: 'bg-[#336791]/10',
+      borderColor: 'border-[#336791]/20',
+      textColor: 'text-[#336791]'
+    },
+    {
+      name: 'MongoDB',
+      abbr: 'MG',
+      color: 'bg-[#00ED64]',
+      bgColor: 'bg-[#00ED64]/10',
+      borderColor: 'border-[#00ED64]/20',
+      textColor: 'text-[#00ED64]'
+    },
+    {
+      name: 'Supabase',
+      abbr: 'SB',
+      color: 'bg-[#3ECF8E]',
+      bgColor: 'bg-[#3ECF8E]/10',
+      borderColor: 'border-[#3ECF8E]/20',
+      textColor: 'text-[#3ECF8E]'
+    },
+    {
+      name: 'Google Sheets',
+      abbr: 'GS',
+      color: 'bg-[#0F9D58]',
+      bgColor: 'bg-[#0F9D58]/10',
+      borderColor: 'border-[#0F9D58]/20',
+      textColor: 'text-[#0F9D58]'
+    },
+    {
+      name: 'MySQL',
+      abbr: 'MY',
+      color: 'bg-[#FF4500]',
+      bgColor: 'bg-[#FF4500]/10',
+      borderColor: 'border-[#FF4500]/20',
+      textColor: 'text-[#FF4500]'
+    }
+  ];
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-32 sm:pb-32">
-        <div className="text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 mb-8"
+  return (<section className="pt-28 pb-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+    {/* Animated Background */}
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#FF4500]/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-200/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+    </div>
+
+    <div className="max-w-7xl mx-auto relative">
+      {/* Badge for vibe coders */}
+      <div className="flex justify-center mb-8 animate-fade-in">
+        <div className="inline-flex items-center gap-3 border-2 border-black px-6 py-3 bg-white hover:shadow-[4px_4px_0px_0px_#000] transition-shadow cursor-default">
+          <div className="flex items-center gap-2">
+            <MousePointer className="w-4 h-4 text-[#FF4500]" />
+            <span className="font-bold">Point & Click Setup</span>
+          </div>
+          <span className="text-gray-400">•</span>
+          <div className="flex items-center gap-2">
+            <Code2 className="w-4 h-4 text-[#FF4500]" />
+            <span className="text-gray-600">Zero Code Required</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center max-w-4xl mx-auto">
+        <h1 className="font-heading font-black text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tight leading-none mb-6 animate-slide-up">
+          Sync Your Databases
+          <span className="block text-[#FF4500] animate-gradient-text">In Real-Time</span>
+        </h1>
+
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          The <strong>no-code</strong> way to sync Airtable with PostgreSQL, Supabase, MongoDB & more.
+          Built for <strong>vibe coders</strong> and makers who ship fast.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <Link
+            href="/waitlist"
+            className="btn-primary flex items-center gap-2 text-lg px-8 py-4 hover:scale-105 transition-transform"
           >
-            <Zap className="w-4 h-4 text-indigo-600" />
-            <span className="text-sm font-medium text-indigo-700">Sync in under 5 seconds</span>
+            Start Free Trial
+            <ArrowRight className="w-5 h-5 animate-bounce-x" />
+          </Link>
+        </div>
+
+        {/* Stats */}
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="text-center group cursor-default">
+            <div className="font-heading font-black text-4xl text-[#FF4500] group-hover:scale-110 transition-transform">&lt;5s</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-gray-500 mt-1">Sync Time</div>
+          </div>
+          <div className="w-px h-12 bg-gray-300 hidden md:block"></div>
+          <div className="text-center group cursor-default">
+            <div className="font-heading font-black text-4xl group-hover:scale-110 transition-transform">5 min</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-gray-500 mt-1">Setup Time</div>
+          </div>
+          <div className="w-px h-12 bg-gray-300 hidden md:block"></div>
+          <div className="text-center group cursor-default">
+            <div className="font-heading font-black text-4xl group-hover:scale-110 transition-transform">99.9%</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-gray-500 mt-1">Uptime</div>
+          </div>
+          <div className="w-px h-12 bg-gray-300 hidden md:block"></div>
+          <div className="text-center group cursor-default">
+            <div className="font-heading font-black text-4xl group-hover:scale-110 transition-transform">0</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-gray-500 mt-1">Lines of Code</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual Demo */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="relative"
+      >
+        {/* Connection lines background - desktop only */}
+        <div className="hidden lg:block absolute inset-0">
+          <div className="absolute left-1/4 top-1/2 w-1/2 h-0.5 bg-linear-to-r from-black via-[#FF4500] to-black"></div>
+          <div className="absolute left-1/2 top-1/2 w-0.5 h-1/4 bg-linear-to-b from-black via-[#FF4500] to-black"></div>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8 items-center">
+          {/* Databases column */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="space-y-4"
+          >
+            <div className="mb-6">
+              <h3 className="font-heading font-bold text-xl uppercase mb-3 text-center lg:text-left">Your Databases</h3>
+              <p className="text-gray-600 text-sm">Connect directly to any of these</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {databases.slice(0, 4).map((db, index) => (
+                <motion.div
+                  key={db.name}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                  className={`border-2 border-black p-4 bg-white hover:shadow-[4px_4px_0px_0px_#000] transition-all hover:-translate-y-1 cursor-default ${db.bgColor}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 ${db.color} text-white flex items-center justify-center font-bold text-sm border-2 border-black`}>
+                      {db.abbr}
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm">{db.name}</p>
+                      <p className="text-xs text-gray-500">Direct</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
-          {/* Main headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight max-w-4xl mx-auto"
-          >
-            Real-Time Database Sync
-            <span className="block mt-2 bg-linear-to-r from-primary to-teal-500 bg-clip-text text-transparent">
-              for Airtable
-            </span>
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed pb-5"
-          >
-            Two-way sync between Postgres, MySQL, MongoDB and Airtable.
-            Update data in one tool, and DBPiper mirrors it in the other — instantly.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className={`text-lg sm:text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto transition-all duration-700 delay-100 opacity-100`}
-          >
-            Postgres • MySQL • MongoDB | 10-minute setup | $15/month
-          </motion.p>
-
-          {/* CTA Buttons */}
+          {/* Center sync hub */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6 }}
+            className="flex flex-col items-center justify-center py-8 lg:py-0"
           >
-            <Button asChild size="lg" className="px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all">
-              <Link
-                href="/waitlist"
-              >
-                Join the Waitlist
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
+            <div className="relative">
+              <div className="w-24 h-24 border-4 border-black bg-white flex items-center justify-center hover:shadow-[8px_8px_0px_0px_#FF4500] transition-shadow group">
+                <Image
+                  width={25}
+                  height={25}
+                  src="/logo.svg"
+                  className="w-20 h-20 text-[#FF4500] group-hover:rotate-180 transition-transform duration-300"
+                  alt="DBPiper Logo"
+                />
+              </div>
+              <div className="absolute -inset-4 border-2 border-[#FF4500] animate-ping opacity-20"></div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="font-heading font-black text-xl uppercase">DBPiper</p>
+              <div className="flex items-center justify-center gap-2 mt-2">
+                <div className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse"></div>
+                <p className="font-mono text-xs uppercase tracking-widest text-gray-500">Real-Time Sync</p>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 mt-8">
+              <div className="text-center">
+                <div className="font-heading font-black text-2xl text-[#FF4500]">&lt;5s</div>
+                <div className="font-mono text-xs uppercase tracking-wider text-gray-500">Sync Time</div>
+              </div>
+              <div className="text-center">
+                <div className="font-heading font-black text-2xl">99.9%</div>
+                <div className="font-mono text-xs uppercase tracking-wider text-gray-500">Uptime</div>
+              </div>
+              <div className="text-center">
+                <div className="font-heading font-black text-2xl">0</div>
+                <div className="font-mono text-xs uppercase tracking-wider text-gray-500">Setup Time</div>
+              </div>
+            </div>
           </motion.div>
 
-          {/* Trust indicators */}
+          {/* Airtable column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-slate-500"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7 }}
+            className="space-y-4"
           >
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-teal-500" />
-              <span>10 minute setup</span>
+            <div className="mb-6 text-center lg:text-right">
+              <h3 className="font-heading font-bold text-xl uppercase mb-3">Your Airtable</h3>
+              <p className="text-gray-600 text-sm">Sync with any base or table</p>
             </div>
-            <div className="flex items-center gap-2">
-              <RefreshCw className="w-4 h-4 text-teal-500" />
-              <span>Bidirectional sync</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-teal-500" />
-              <span>No code required</span>
+
+            <div className="border-2 border-black bg-[#FCE4A4] hover:shadow-[8px_8px_0px_0px_#000] transition-all p-6">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 bg-black text-white flex items-center justify-center font-bold text-xl border-2 border-black">
+                  AT
+                </div>
+                <div>
+                  <p className="font-heading font-bold text-xl uppercase">Airtable</p>
+                  <p className="font-mono text-sm text-gray-600">products table</p>
+                </div>
+              </div>
+
+              {/* Airtable preview */}
+              <div className="bg-white border-2 border-black p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-[#FF4500] rounded-full"></div>
+                    <span className="font-mono text-xs uppercase tracking-wider">Live Table</span>
+                  </div>
+                  <span className="text-xs bg-gray-100 px-2 py-1 font-mono">1,247 records</span>
+                </div>
+
+                <div className="space-y-2">
+                  {/* Header row */}
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="h-6 bg-black text-white text-xs font-bold flex items-center justify-center px-2">ID</div>
+                    <div className="h-6 bg-black text-white text-xs font-bold flex items-center justify-center px-2">NAME</div>
+                    <div className="h-6 bg-black text-white text-xs font-bold flex items-center justify-center px-2">PRICE</div>
+                  </div>
+
+                  {/* Data rows */}
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="h-6 bg-gray-50 border border-gray-200 text-xs flex items-center justify-center">#001</div>
+                    <div className="h-6 bg-gray-50 border border-gray-200 text-xs flex items-center justify-center">Widget A</div>
+                    <div className="h-6 bg-gray-50 border border-gray-200 text-xs flex items-center justify-center">$29.99</div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="h-6 bg-gray-50 border border-gray-200 text-xs flex items-center justify-center">#002</div>
+                    <div className="h-6 bg-gray-50 border border-gray-200 text-xs flex items-center justify-center">Widget B</div>
+                    <div className="h-6 bg-gray-50 border border-gray-200 text-xs flex items-center justify-center">$49.99</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Hero visual */}
+        {/* Additional databases row */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="mt-16 relative"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 }}
+          className="mt-12 pt-12 border-t-2 border-black"
         >
-          <div className="relative mx-auto max-w-5xl">
-            {/* Glow effect */}
-            <div className="absolute -inset-4 bg-linear-to-r from-indigo-500/20 via-purple-500/20 to-teal-500/20 rounded-3xl blur-2xl" />
+          <div className="text-center mb-8">
+            <h3 className="font-heading font-bold text-xl uppercase mb-3">And Many More</h3>
+            <p className="text-gray-600">Plus custom integrations for your specific needs</p>
+          </div>
 
-            {/* Main card */}
-            <div className="relative bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-              {/* Browser header */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
+          <div className="flex flex-wrap justify-center gap-4">
+            {[
+              { name: 'Airtable', color: 'bg-[#FCE4A4]', text: 'text-black', icon: 'AT' },
+              { name: 'PostgreSQL', color: 'bg-[#336791]', text: 'text-white', icon: 'PG' },
+              { name: 'Supabase', color: 'bg-[#3ECF8E]', text: 'text-white', icon: 'SB' },
+              { name: 'MongoDB', color: 'bg-[#00ED64]', text: 'text-black', icon: 'MO' },
+              { name: 'Webflow', color: 'bg-[#4353FF]', text: 'text-white', icon: 'WF' },
+              { name: 'Google Sheets', color: 'bg-[#0F9D58]', text: 'text-white', icon: 'GS' },
+            ].map((db, index) => (
+              <motion.div
+                key={db.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.9 + index * 0.05 }}
+                className={`flex items-center gap-3 px-5 py-3 bg-white border-2 border-black hover:shadow-[4px_4px_0px_0px_#000] transition-all hover:-translate-y-1 cursor-default`}
+              >
+                <div className={`w-10 h-10 ${db.color} ${db.text} flex items-center justify-center font-bold text-sm border border-black`}>
+                  {db.name.slice(0, 2)}
                 </div>
-                <div className="flex-1 flex justify-center">
-                  <div className="px-4 py-1 bg-white rounded-lg text-xs text-slate-400 border border-slate-200">
-                    app.dbpiper.io
-                  </div>
-                </div>
-              </div>
-
-              {/* Dashboard preview */}
-              <div className="p-6 sm:p-8 bg-linear-to-br from-slate-50 to-white">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {/* Source panel */}
-                  <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
-                        <span className="text-indigo-600 font-bold text-sm">PG</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-slate-900">PostgreSQL</p>
-                        <p className="text-xs text-slate-500">Source Database</p>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-2 bg-slate-100 rounded w-full" />
-                      <div className="h-2 bg-slate-100 rounded w-3/4" />
-                      <div className="h-2 bg-slate-100 rounded w-5/6" />
-                    </div>
-                  </div>
-
-                  {/* Sync animation */}
-                  <div className="flex items-center justify-center">
-                    <div className="relative">
-                      <div className="w-16 h-16 rounded-full bg-linear-to-br from-primary-500 to-teal-500 flex items-center justify-center shadow-lg shadow-primary-200">
-                        <RefreshCw className="w-7 h-7 text-white animate-spin" style={{ animationDuration: '3s' }} />
-                      </div>
-                      <div className="absolute -inset-2 bg-linear-to-r from-indigo-500/20 to-teal-500/20 rounded-full blur-lg animate-pulse" />
-                    </div>
-                  </div>
-
-                  {/* Destination panel */}
-                  <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center">
-                        <span className="text-teal-600 font-bold text-sm">AT</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-slate-900">Airtable</p>
-                        <p className="text-xs text-slate-500">Destination</p>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-2 bg-teal-100 rounded w-full" />
-                      <div className="h-2 bg-teal-100 rounded w-3/4" />
-                      <div className="h-2 bg-teal-100 rounded w-5/6" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Status bar */}
-                <div className="mt-6 flex items-center justify-between px-4 py-3 bg-green-50 rounded-lg border border-green-100">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-sm font-medium text-green-700">Syncing in real-time</span>
-                  </div>
-                  <span className="text-xs text-green-600">Last sync: 2 seconds ago</span>
-                </div>
-              </div>
-            </div>
+                <span className="font-bold text-sm">{db.name}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
-      </div>
-    </section>
-  );
+      </motion.div>
+    </div>
+  </section>);
 }

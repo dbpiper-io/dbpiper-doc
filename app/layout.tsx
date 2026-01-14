@@ -4,6 +4,7 @@ import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { ReactNode } from 'react';
 import { Toaster } from "@/components/ui/sonner"
 import { Navbar } from "@/components/Navbar";
+import FeedbackWidget from "@/components/landing/FeedbackWidget";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -25,10 +26,10 @@ export default function Layout({ children }: { children: ReactNode }) {
           }}
         ><Navbar />
           {children}
+          <FeedbackWidget />
           <Toaster />
         </RootProvider>
       </body>
     </html>
   );
 }
-

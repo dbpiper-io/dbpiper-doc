@@ -1,4 +1,3 @@
-import * as motion from "framer-motion/client";
 import {
   Accordion,
   AccordionContent,
@@ -6,168 +5,186 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const leftColumnFaqs = [
+const faqs = [
   {
-    question: 'How does real-time sync work?',
-    answer: 'DBPiper uses database triggers and webhooks to detect changes instantly. When a row is inserted, updated, or deleted in your database, we capture that change and push it to Airtable within seconds. The same works in reverse — changes in Airtable are pushed to your database automatically.'
+    category: "Setup & Integration",
+    items: [
+      {
+        question: "How long does it take to set up DBPiper?",
+        answer: "Most users are up and running in under 5 minutes. Simply connect your database, authorize Airtable, map your fields, and start syncing. No complex configurations or engineering time required."
+      },
+      {
+        question: "What databases does DBPiper support?",
+        answer: "DBPiper supports PostgreSQL, MySQL, MongoDB, Supabase, and SQLite natively. We also support Webflow CMS, Google Sheets, and offer custom integrations for other databases. All connections are direct—no middleware required."
+      },
+      {
+        question: "Do I need to install any software or libraries?",
+        answer: "No installation required. DBPiper is a cloud-based platform that connects directly to your databases via secure SSL connections. Everything runs in your browser—no CLI, no configuration files, no dependencies."
+      },
+      {
+        question: "Can I sync multiple Airtable bases with one database?",
+        answer: "Yes! You can create multiple sync configurations from one database to different Airtable bases or tables. Each sync configuration is independent and can have its own field mappings and sync schedules."
+      }
+    ]
   },
   {
-    question: 'How is this different from Zapier?',
-    answer: 'Zapier has 15-minute delays and isn\'t built for database sync. DBPiper uses real-time webhooks and database triggers for <5 second sync times. Plus, we\'re 10x more reliable for database operations.'
+    category: "Features & Capabilities",
+    items: [
+      {
+        question: "How real-time is the sync?",
+        answer: "Changes sync in under 5 seconds. For PostgreSQL and MySQL, we use database triggers and listen for changes. For other databases, we poll for changes at configurable intervals (as frequent as 5 seconds). Airtable changes are captured instantly via webhooks."
+      },
+      {
+        question: "Can I sync data both ways (bidirectional)?",
+        answer: "Absolutely. DBPiper supports bidirectional sync by default. Changes in Airtable sync to your database, and database changes sync back to Airtable. You can also configure one-way sync if preferred."
+      },
+      {
+        question: "How do you handle data type conversions?",
+        answer: "DBPiper automatically handles type conversions between database types and Airtable field types. For example: PostgreSQL timestamps become Airtable date fields, JSONB becomes rich text, and we handle all common data type mappings automatically."
+      },
+      {
+        question: "Can I filter which records get synced?",
+        answer: "Yes. You can create filter rules to only sync records that match specific conditions (price > $100, status = 'active', created after Jan 1, etc.). Filters can use AND/OR logic and support text, numbers, dates, and booleans."
+      }
+    ]
   },
   {
-    question: 'Why not just use Whale Sync?',
-    answer: 'Whale Sync only works with Supabase. If you have Postgres, MySQL, or MongoDB, you\'d need to migrate your entire database to Supabase. DBPiper works with your existing infrastructure.'
+    category: "Security & Reliability",
+    items: [
+      {
+        question: "Is my data secure with DBPiper?",
+        answer: "Yes. We use bank-level 256-bit encryption for all data in transit and at rest. Database credentials are encrypted using AWS KMS. We never store your actual database data—only sync metadata. We're SOC 2 compliant and all connections use SSL/TLS."
+      },
+      {
+        question: "What happens during connection failures or downtime?",
+        answer: "DBPiper automatically retries failed syncs with exponential backoff. All pending changes are queued and processed once connectivity is restored. You receive notifications for any extended outages, and we guarantee 99.9% uptime for our sync infrastructure."
+      },
+      {
+        question: "How do you handle conflicting changes?",
+        answer: "You choose the conflict resolution strategy: last-write-wins, source-priority (Airtable or database), or manual review. All conflicts are logged with before/after values, and you can configure automatic resolution rules based on field-level priorities."
+      },
+      {
+        question: "Can I roll back changes if something goes wrong?",
+        answer: "Yes. DBPiper maintains a full audit log of all changes with before/after values. You can roll back individual records or entire sync sessions to any point in the last 30 days (90 days on Pro+ plans)."
+      }
+    ]
   },
   {
-    question: 'Is my data secure?',
-    answer: 'Yes. We use bank-level encryption (AES-256) for all credentials. Database connections are SSL-encrypted. We never store your actual data - just sync it in real-time between your systems.'
+    category: "Pricing & Support",
+    items: [
+      {
+        question: "What's included in the free plan?",
+        answer: "The free plan includes 500 records/month, 1 sync configuration, 2 connections (e.g., 1 database + 1 Airtable), daily sync frequency, and community support. Perfect for testing and small projects."
+      },
+      {
+        question: "How does the 14-day free trial work?",
+        answer: "Start with any paid plan and use all Pro features for 14 days, no credit card required. If you don't upgrade at the end of the trial, you automatically revert to the free plan. No charges unless you manually upgrade."
+      },
+      {
+        question: "What kind of support do you offer?",
+        answer: "All plans include email support with 24-hour response time. Pro and Enterprise plans include priority support with 4-hour response time, dedicated Slack channel access, and technical account management for Enterprise customers."
+      },
+      {
+        question: "Can I cancel or change my plan anytime?",
+        answer: "Yes. Upgrade, downgrade, or cancel anytime from your dashboard. Changes take effect immediately, and we prorate charges. No contracts, no commitments, no hidden fees."
+      }
+    ]
   },
   {
-    question: 'What happens if both sides change at once?',
-    answer: 'You choose the conflict resolution strategy: last-write-wins, Airtable-wins, database-wins, or manual review. All conflicts are logged for your review.'
-  },
-  {
-    question: 'Can I sync multiple tables?',
-    answer: 'Yes! Starter plan includes 3 syncs, Pro includes 10. Each sync can be a different table pair (e.g., Customers, Orders, Products).'
+    category: "Advanced Use Cases",
+    items: [
+      {
+        question: "Can DBPiper create database tables automatically?",
+        answer: "Yes. If you're syncing from Airtable to a database and the table doesn't exist, DBPiper can automatically create it with the appropriate schema (columns, data types, constraints) based on your Airtable fields."
+      },
+      {
+        question: "Does DBPiper handle large databases and high-volume syncs?",
+        answer: "Absolutely. We've tested with databases containing millions of records. DBPiper uses intelligent batching, incremental syncs, and optimized queries to handle high-volume workloads efficiently without impacting your database performance."
+      },
+      {
+        question: "Can I use DBPiper for data migration between systems?",
+        answer: "Yes. Many users use DBPiper for one-time data migrations between legacy systems and Airtable or between different databases. You can run a full sync to migrate all data, then continue with real-time sync for ongoing changes."
+      },
+      {
+        question: "Do you offer custom integrations or APIs?",
+        answer: "Yes. Enterprise plans include custom integration development. We also offer a REST API for programmatic management of sync configurations, monitoring sync status, and accessing audit logs. Webhooks are available for sync completion events."
+      }
+    ]
   }
 ];
-
-
-const rightColumnFaqs = [
-  {
-    question: 'What if I need to sync with multiple Airtable bases?',
-    answer: 'Each database can sync to multiple Airtable bases, and each Airtable base can receive data from multiple databases. There\'s no limit on the number of sync configurations within your plan\'s connection limits.'
-  },
-  {
-    question: 'Do you support MySQL and MongoDB?',
-    answer: 'Yes! We support Postgres, MySQL, and MongoDB. More databases coming soon based on demand.'
-  },
-  {
-    question: 'What if I\'m a Sequin customer?',
-    answer: 'We\'re offering free migration assistance and 50% off for 3 months. Book a migration call and we\'ll handle the entire transition'
-  },
-  {
-    question: 'How do I get started?',
-    answer: 'Join the beta waitlist now. We\'re launching soon and accepting 50 founding users. You\'ll get priority access and founding user perks.'
-  },
-  {
-    question: 'What\'s your refund policy?',
-    answer: '30-day money-back guarantee, no questions asked. If DBPiper doesn\'t work for you, we\'ll refund your first month immediately.'
-  },
-  {
-    question: 'Can I cancel anytime?',
-    answer: 'Yes, absolutely. No contracts, no commitments. Cancel with one click from your dashboard.'
-  }
-];
-
 
 export default function FAQ() {
   return (
-    <section className="py-24 bg-linear-to-b from-slate-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-24 px-6 md:px-12 lg:px-24 bg-white border-y-2 border-black">
+      <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-sm font-semibold text-primary uppercase tracking-wide mb-3"
-          >
-            FAQ
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-bold text-slate-900"
-          >
-            Frequently Asked Questions
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-4 text-lg text-slate-600"
-          >
-            Everything you need to know about DBPiper
-          </motion.p>
-        </div>
-
-        {/* Two Column FAQ Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            <Accordion type="single" collapsible className="space-y-4">
-              {leftColumnFaqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`left-${index}`}
-                  className="bg-white rounded-xl border border-slate-100 px-6 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-primary py-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 pb-24 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
-
-          {/* Right Column */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-          >
-            <Accordion type="single" collapsible className="space-y-4">
-              {rightColumnFaqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`right-${index}`}
-                  className="bg-white rounded-xl border border-slate-100 px-6 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-primary py-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 pb-24 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
-        </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="text-center bg-linear-to-r from-blue-50 to-green-50 rounded-2xl p-8 border border-blue-200"
-        >
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">
-            Still have questions?
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <div
-              className="bg-primary text-white p-2 rounded-lg"
-            >
-              Email us at aliamer19ali@gmail.com
-            </div>
+          <div className="inline-flex items-center gap-2 border-2 border-black px-4 py-2 bg-white mb-6">
+            <span className="font-mono text-xs uppercase tracking-widest font-bold text-[#FF4500]">FAQ</span>
           </div>
-        </motion.div>
+
+          <h1 className="font-heading font-black text-4xl md:text-5xl uppercase tracking-tight mb-4">
+            Frequently Asked Questions
+          </h1>
+
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about syncing databases with Airtable. Can&apos;t find what you&apos;re looking for? Contact our support team.
+          </p>
+        </div>
+
+        {/* SEO-optimized FAQ structure with schema markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": faqs.flatMap(category =>
+                category.items.map(item => ({
+                  "@type": "Question",
+                  "name": item.question,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                  }
+                }))
+              )
+            })
+          }}
+        />
+
+        {/* FAQ Categories */}
+        <div className="space-y-12">
+          {faqs.map((category, categoryIndex) => (
+            <div key={category.category} className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-1 h-8 bg-[#FF4500]"></div>
+                <h2 className="font-heading font-bold text-2xl uppercase">
+                  {category.category}
+                </h2>
+              </div>
+
+              <Accordion type="single" collapsible className="space-y-4">
+                {category.items.map((faq, itemIndex) => (
+                  <AccordionItem
+                    key={itemIndex}
+                    value={`${categoryIndex}-${itemIndex}`}
+                    className="border-2 border-black bg-white hover:shadow-[4px_4px_0px_0px_#000] transition-all"
+                  >
+                    <AccordionTrigger className="text-left font-heading font-bold text-lg uppercase hover:text-[#FF4500] p-6 data-[state=open]:text-[#FF4500]">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 p-6 pt-0 mb-4 leading-relaxed">
+                      <div className="prose prose-gray max-w-none">
+                        {faq.answer}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

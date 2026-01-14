@@ -1,92 +1,150 @@
 import Link from 'next/link';
 import { blog } from '@/lib/source';
-import { ArrowRight, Clock, Tag, User, TrendingUp } from 'lucide-react';
+import { ArrowRight, Clock, Tag, Zap } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 
 export default function Home() {
   const posts = blog.getPages();
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-background to-gray-50/30 dark:from-background dark:to-gray-900/20">
-      <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-            <TrendingUp className="h-4 w-4" />
-            Latest Updates
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b-2 border-black">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+          <div className="flex items-center justify-between h-16">
+            <Logo />
+            <div className="flex items-center gap-4">
+              <Link
+                href="/"
+                className="text-sm hover:text-[#FF4500] transition-colors font-bold uppercase tracking-wider"
+              >
+                ← Back to Home
+              </Link>
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Insights & Stories
-            </span>
+        </div>
+      </nav>
+
+      <div className="pt-24 px-6 md:px-12 lg:px-24">
+        {/* Header */}
+        <div className="max-w-7xl mx-auto mb-16 lg:mb-20">
+          <div className="inline-flex items-center gap-2 border-2 border-black px-4 py-2 bg-white mb-6">
+            <Zap className="w-4 h-4 text-[#FF4500]" />
+            <span className="font-mono text-xs uppercase tracking-widest font-bold">Insights & Stories</span>
+          </div>
+
+          <h1 className="font-heading font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight mb-6">
+            No-Code Database Insights
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover perspectives, tutorials, and ideas from our community
-          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            <p className="text-xl text-gray-600">
+              Discover perspectives, tutorials, and ideas about syncing databases with Airtable. Built for makers and no-code enthusiasts.
+            </p>
+
+            <div className="border-2 border-black bg-black text-white p-6">
+              <div className="font-mono text-xs uppercase tracking-wider opacity-80 mb-2">Latest Article</div>
+              <h3 className="font-heading font-bold text-lg uppercase mb-2">
+                {posts[0]?.data.title || "Getting Started with DBPiper"}
+              </h3>
+              <Link
+                href={posts[0]?.url || "#"}
+                className="inline-flex items-center gap-2 text-[#FF4500] font-bold uppercase tracking-wider text-sm hover:underline"
+              >
+                Read Now
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Blog Grid */}
-        <div className="grid gap-8 md:gap-10 lg:gap-12 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, index) => (
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+          {posts.map((post) => (
             <article
               key={post.url}
-              className="group relative"
-              style={{ viewTransitionName: `blog-card-${index}` }}
+              className="group"
             >
               <Link
                 href={post.url}
                 className="block h-full"
               >
-                <div className="relative h-full overflow-hidden rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/40 dark:border-gray-800/50 shadow-lg shadow-gray-200/10 dark:shadow-gray-900/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 group-hover:-translate-y-2">
-                  <div className="p-6 lg:p-7">
+                <div className="border-2 border-black bg-white hover:shadow-[8px_8px_0px_0px_#000] transition-all h-full group-hover:-translate-y-2">
+                  <div className="p-6">
+                    {/* Meta Info */}
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-medium px-3 py-1.5 rounded-full">
-                        <Tag className="h-3.5 w-3.5" />
-                        <span>{'General'}</span>
+                      <div className="inline-flex items-center gap-2 border-2 border-black px-3 py-1 bg-white">
+                        <Tag className="w-3.5 h-3.5" />
+                        <span className="font-mono text-xs uppercase tracking-wider">{'General'}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-3 text-sm text-gray-600">
                         <span className="flex items-center gap-1.5">
-                          <Clock className="h-4 w-4" />
-                          {'5'} min read
+                          <Clock className="w-4 h-4" />
+                          {'5'} min
                         </span>
+
                       </div>
                     </div>
 
-                    {post.data.author && (
-                      <div className="flex items-center gap-2 mb-4">
-                        <div className="w-6 h-6 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-                          <User className="h-3.5 w-3.5" />
-                        </div>
-                        <span className="text-sm text-muted-foreground">{post.data.author}</span>
-                      </div>
-                    )}
-
-                    {/* Title & Description */}
-                    <h2 className="text-xl lg:text-2xl font-bold mb-4 line-clamp-2 group-hover:text-primary transition-colors">
+                    {/* Title */}
+                    <h2 className="font-heading font-bold text-2xl uppercase mb-3 group-hover:text-[#FF4500] transition-colors">
                       {post.data.title}
                     </h2>
-                    <p className="text-muted-foreground mb-6 line-clamp-3 leading-relaxed">
+
+                    {/* Description */}
+                    <p className="text-gray-600 mb-6 line-clamp-3">
                       {post.data.description}
                     </p>
 
-                    {/* Read More Button */}
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
-                      <span className="text-primary font-medium group-hover:underline underline-offset-4">
-                        Read article
+                    {/* Author */}
+                    {post.data.author && (
+                      <div className="flex items-center gap-3 mb-6 p-3 bg-gray-50 border border-gray-200">
+                        <div className="w-8 h-8 bg-black text-white flex items-center justify-center font-bold text-sm">
+                          {post.data.author.charAt(0)}
+                        </div>
+                        <div>
+                          <div className="font-bold text-sm">{post.data.author}</div>
+                          <div className="text-xs text-gray-500">Author</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Read More */}
+                    <div className="flex items-center justify-between pt-4 border-t-2 border-black">
+                      <span className="font-heading font-bold text-sm uppercase tracking-wider group-hover:text-[#FF4500] transition-colors">
+                        Read Article
                       </span>
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm group-hover:blur-md transition-all duration-300" />
-                        <ArrowRight className="h-5 w-5 text-primary relative transition-transform duration-300 group-hover:translate-x-2" />
+                      <div className="w-8 h-8 bg-black text-white flex items-center justify-center group-hover:bg-[#FF4500] transition-colors">
+                        <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
                   </div>
-
-                  {/* Hover Effects */}
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/10 rounded-2xl pointer-events-none transition-all duration-500" />
-                  <div className="absolute -inset-0.5 bg-linear-to-r from-primary/0 via-primary/5 to-accent/0 opacity-0 group-hover:opacity-100 rounded-2xl blur-xl transition-opacity duration-700 pointer-events-none" />
                 </div>
               </Link>
             </article>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="max-w-7xl mx-auto mt-16">
+          <div className="border-2 border-black bg-[#FF4500] text-white p-8">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="font-heading font-black text-3xl uppercase mb-4">Start Syncing Today</h2>
+                <p className="opacity-90">
+                  Ready to try DBPiper? Start your free trial and sync your first database in 5 minutes.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/waitlist"
+                  className="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
