@@ -18,7 +18,7 @@ const FeedbackWidget = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
- 
+
   const [formData, setFormData] = useState({
     email: '',
     category: '',
@@ -47,9 +47,9 @@ const FeedbackWidget = () => {
     try {
       await supabase.from("feedback").insert(formData)
       toast.success('Thank you for feedback 🎉');
+      setIsOpen(false)
     } catch (error) {
       toast.error('Something went wrong. Please try again.');
-      setIsOpen(false)
     } finally {
       setLoading(false);
     }
@@ -124,7 +124,7 @@ const FeedbackWidget = () => {
                           <button
                             key={cat.id}
                             type="button"
-                            onClick={() => setFormData({...formData, category: cat.id})}
+                            onClick={() => setFormData({ ...formData, category: cat.id })}
                             className={`p-3 border-2 flex items-center gap-2 transition-all ${formData.category === cat.id
                               ? 'border-black bg-black text-white'
                               : 'border-gray-200 hover:border-black'
@@ -148,7 +148,7 @@ const FeedbackWidget = () => {
                         <button
                           key={star}
                           type="button"
-                          onClick={() => setFormData({...formData, rating:star})}
+                          onClick={() => setFormData({ ...formData, rating: star })}
                           onMouseEnter={() => setHoveredRating(star)}
                           onMouseLeave={() => setHoveredRating(0)}
                           className="p-1 transition-transform hover:scale-110"
@@ -183,7 +183,7 @@ const FeedbackWidget = () => {
                     </label>
                     <textarea
                       value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full h-32 p-3 border-2 border-gray-200 focus:border-black focus:outline-none resize-none transition-colors"
                       placeholder="Tell us what's on your mind..."
                       required
