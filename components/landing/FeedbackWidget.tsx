@@ -49,6 +49,7 @@ const FeedbackWidget = () => {
       toast.success('Thank you for feedback 🎉');
     } catch (error) {
       toast.error('Something went wrong. Please try again.');
+      setIsOpen(false)
     } finally {
       setLoading(false);
     }
