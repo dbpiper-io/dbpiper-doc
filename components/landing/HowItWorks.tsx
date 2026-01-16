@@ -299,15 +299,20 @@ export default function HowItWorks() {
           transition={{ delay: 0.8 }}
           className="text-center mt-16"
         >
-          <div className="inline-flex items-center gap-4 border-2 border-black bg-white p-6 hover:shadow-[8px_8px_0px_0px_#000] transition-shadow">
-            <div className="w-12 h-12 bg-[#FF4500] text-white flex items-center justify-center">
+          <div className="flex flex-col sm:flex-row items-center gap-4 border-2 border-black bg-white p-6 hover:shadow-[8px_8px_0px_0px_#000] transition-shadow">
+            {/* Icon */}
+            <div className="w-12 h-12 bg-[#FF4500] text-white flex items-center justify-center shrink-0">
               <Zap className="w-6 h-6" />
             </div>
-            <div className="text-left">
+
+            {/* Text Content */}
+            <div className="text-center sm:text-left flex-1">
               <p className="font-heading font-bold text-lg uppercase">Ready to start syncing?</p>
-              <p className="text-gray-600 text-sm">Start your free trial and sync your first database in minutes.</p>
+              <p className="text-gray-600 text-sm mt-1">Start your free trial and sync your first database in minutes.</p>
             </div>
-            <button className="btn-primary ml-4">
+
+            {/* Button */}
+            <button className="btn-primary w-full sm:w-auto mt-4 sm:mt-0">
               Get Started
             </button>
           </div>
